@@ -1,0 +1,26 @@
+.CurrencyNew-wrapper {
+	overflow: hidden;
+	max-height: 25rem;
+	width: 100%;
+}
+
+.CurrencyNew-option {
+	height: 2rem;
+	font-size: 1.3em;
+	padding: 0.6rem 1rem 0.3rem;
+	border-bottom: #BBB 1px solid;
+}
+
+.CurrencyNew-currency {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.CurrencyNew-full {
+	font-size: 1em;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}

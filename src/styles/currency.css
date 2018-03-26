@@ -1,0 +1,61 @@
+.Currency {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+	align-items: center;
+	height: 5rem;
+	padding: 0.3rem 0.5rem 0;
+
+	background: rgba(40, 40, 40, 0.5);
+	border-bottom: #BBB 1px solid;
+}
+.Currency * {
+	padding: 0;
+}
+
+.Currency-remove {
+	min-width: 8%;
+	padding: 0.5rem;
+	border: none;
+	background: none;
+	color: white;
+}
+
+.Currency-value {
+	flex-grow: 10;
+	display: flex;
+	flex-flow: column;
+	align-items: flex-end;
+	padding: 12px;
+}
+.Currency-main-value {
+	flex-grow: 10;
+	padding-right: 0.5em;
+	width: 100%;
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+}
+.Currency-input {
+	width: 100%;
+	background: none;
+	border: none;
+	color: white;
+	font-size: 32px;
+	text-align: right;
+}
+.Currency-input:focus {
+	outline: none;
+}
+.Currency-name {
+	width: auto;
+	text-align: left;
+	font-size: 32px;
+	line-height: 32px;
+}
+
+.Currency-rate {
+	font-size: 16px;
+	text-align: right;
+	padding-right: 0.6em;
+}

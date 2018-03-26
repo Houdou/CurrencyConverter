@@ -1,0 +1,10 @@
+{
+	"extends": "aftership/react",
+	"settings": {
+		"import/resolver": {
+			"webpack": {
+			"config": "./node_modules/react-script/config/webpack.config.js"
+			}
+		}
+	}
+}
