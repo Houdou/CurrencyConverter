@@ -12,6 +12,7 @@ class CurrencyNew extends Component {
 	}
 
 	componentDidMount() {
+		// Prevent nested touchmove propagation
 		this.Swiper.on('touchMove', (evt) => {
 			evt.stopPropagation();
 			return true;

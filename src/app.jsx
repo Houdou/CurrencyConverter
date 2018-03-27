@@ -10,6 +10,9 @@ import CurrencyAdd from './components/currency_add';
 
 import './styles/app.css';
 
+/**
+ * Currency data encapsulation
+ */
 class CurrencyData {
 	constructor(Name, Rate, Base = 'USD') {
 		this.Name = Name;
@@ -18,6 +21,10 @@ class CurrencyData {
 	}
 }
 
+/**
+ * Default currency list if the localStorage is not valid or empty
+ * @type {Array<string>}
+ */
 const DEFAULT_INIT_CURRENCIES = ['USD', 'HKD', 'JPY', 'CNY'];
 
 class CurrencyConverterApp extends Component {
@@ -47,8 +54,10 @@ class CurrencyConverterApp extends Component {
 	}
 
 	componentDidMount() {
+		// Get currency list and latest rates
 		Promise.all([this.getCurrencies(), this.getRates()])
 			.then(() => {
+				// Load saved user currency list
 				this.loadLocalCache();
 			})
 			.catch(err => {
@@ -56,10 +65,20 @@ class CurrencyConverterApp extends Component {
 			});
 	}
 
+	/**
+	 * Request historical data
+	 * @param  {string} date Date in format of YYYY-MM-DD
+	 * @return {Promise}      Historical rates data in json or Error message
+	 */
 	getHistory(date) {
 		return this.getRates(`history/${date}.json`);
 	}
 
+	/**
+	 * Request latest rates data
+	 * @param  {String} url Polymorphic interface for getHistory
+	 * @return {Promise}     Latest rates data in json or Error message
+	 */
 	getRates(url = 'latest.json') {
 		const success = fetch(`./api/${url}`)
 			.then((res) => res.json())
@@ -75,6 +94,10 @@ class CurrencyConverterApp extends Component {
 		return Promise.race([success, timeout]);
 	}
 
+	/**
+	 * Request list of available currencies
+	 * @return {Promise} List of currency in json or Error message
+	 */
 	getCurrencies() {
 		const success = fetch('./api/currencies.json')
 			.then((res) => res.json())
@@ -102,6 +125,11 @@ class CurrencyConverterApp extends Component {
 		return Promise.race([success, timeout]);
 	}
 
+	/**
+	 * Update local exchange rates 
+	 * @param  {Object} result New exchange rates
+	 * @return {void}        
+	 */
 	updateRates(result) {
 		this.setState((state, _props) => {
 			const newRates = state.Rates.map(v => {
@@ -115,6 +143,13 @@ class CurrencyConverterApp extends Component {
 		this.popupNoticeOrError('Rates updated.');
 	}
 
+	/**
+	 * Pop up notice/error message in app
+	 * @param  {String}  message Message to display
+	 * @param  {Boolean} isError false - Noticement, true - Error
+	 * @param  {Number}  time    Time(ms) before auto hide
+	 * @return {void}          
+	 */
 	popupNoticeOrError(message, isError = false, time = 3000) {
 		if (this.state.Error || this.state.Notice) {
 			this.handleNoticeClear();
@@ -130,6 +165,12 @@ class CurrencyConverterApp extends Component {
 	}
 
 	// Local currencies storage
+
+	/**
+	 * Save the user currency list in localStorage
+	 * @param  {Object} rates Current user currency list
+	 * @return {void}       
+	 */
 	saveLocalCache(rates) {
 		const savedRates = [];
 		for (const c of rates) {
@@ -138,6 +179,10 @@ class CurrencyConverterApp extends Component {
 		localStorage.setItem(this.STORAGE_KEY, JSON.stringify(savedRates));
 	}
 
+	/**
+	 * Load localStorage for saved user currency list
+	 * @return {void} 
+	 */
 	loadLocalCache() {
 		const savedCurrencies = localStorage.getItem(this.STORAGE_KEY);
 		let currencies = [];
@@ -161,6 +206,10 @@ class CurrencyConverterApp extends Component {
 	// Event handlers:
 
 	// Currency
+	/**
+	 * Handle add currency button click
+	 * @return {void}
+	 */
 	handleAddCurrency() {
 		this.setState((_state, _props) => {
 			return {
@@ -169,6 +218,11 @@ class CurrencyConverterApp extends Component {
 		});
 	}
 
+	/**
+	 * Handle add selected currency
+	 * @param  {String} toAdd New currency's abbr
+	 * @return {void}       
+	 */
 	handleNewCurrency(toAdd) {
 		if (toAdd === 'ESC') {
 			this.setState((_state, _props) => ({PendingNewCurrency: false}));
@@ -185,6 +239,11 @@ class CurrencyConverterApp extends Component {
 		});
 	}
 
+	/**
+	 * Handle delete currency from user currency list
+	 * @param  {String} toDelete Currency's abbr to delete
+	 * @return {void}          
+	 */
 	handleDeleteCurrency(toDelete) {
 		this.setState((state, _props) => {
 			const newRates = state.Rates.filter((c) => c.Name !== toDelete);
@@ -196,6 +255,11 @@ class CurrencyConverterApp extends Component {
 	}
 
 	// Date picker
+	/**
+	 * Handle data picker selected event
+	 * @param  {String} newDate Date in format "YYYY-MM-DD"
+	 * @return {void}         
+	 */
 	handleDatePicker(newDate) {
 		this.getHistory(newDate.format('YYYY-MM-DD'))
 			.then(null, err => {
@@ -209,6 +273,10 @@ class CurrencyConverterApp extends Component {
 	}
 
 	// Noticement
+	/**
+	 * Handle noticement clear event (Triggered when user click the noticebar)
+	 * @return {void} 
+	 */
 	handleNoticeClear() {
 		this.setState((_state, _props) => {
 			return {
@@ -220,6 +288,11 @@ class CurrencyConverterApp extends Component {
 	}
 
 	// Update rates
+
+	/**
+	 * Handle refesh button click
+	 * @return {void} 
+	 */
 	handleRequestRates() {
 		this.getRates()
 			.then(null, err => {
@@ -227,6 +300,11 @@ class CurrencyConverterApp extends Component {
 			});
 	}
 
+	/**
+	 * Handle currency value change
+	 * @param  {Number} newBase Calculated new value of base currency
+	 * @return {void}         
+	 */
 	handleBaseUpdate(newBase) {
 		this.setState((_state, _props) => ({
 			BaseValue: newBase,

@@ -13,8 +13,10 @@ class Notice extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
+		// If the Popup is triggered
 		if (nextProps.Popup) {
 			this.setState((_state, _props) => {
+				// Set auto hide
 				setTimeout(() => {
 					this.clear();
 				}, nextProps.PopupTime);
@@ -26,6 +28,10 @@ class Notice extends Component {
 		return true;
 	}
 
+	/**
+	 * Hide the noticement bar
+	 * @return {void} 
+	 */
 	clear() {
 		this.setState((_state, props) => {
 			setTimeout(() => {

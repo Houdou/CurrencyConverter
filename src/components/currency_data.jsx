@@ -12,14 +12,28 @@ class CurrencyView extends Component {
 		this.prepareDelete = this.prepareDelete.bind(this);
 	}
 
+	/**
+	 * Handle currency value change event
+	 * @param  {Event} evt Input's onChange event
+	 * @return {void}     
+	 */
 	prepareChange(evt) {
 		this.updateBaseValue(Number(evt.target.value) / this.props.Currency.Rate);
 	}
 
+	/**
+	 * Handle remove icon click
+	 * @return {void} 
+	 */
 	prepareDelete() {
 		this.props.handleDeleteCurrency(this.props.Currency.Name);
 	}
 
+	/**
+	 * Request app to change base value
+	 * @param  {Number} v Calculated new base value
+	 * @return {void}   
+	 */
 	updateBaseValue(v) {
 		this.props.handleValueUpdate(v);
 	}
