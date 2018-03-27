@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Swiper from 'react-id-swiper';
 
 class SwiperViewport extends Component {
@@ -22,15 +22,17 @@ class SwiperViewport extends Component {
 			slideClass: 'SwiperViewport-row',
 			direction: 'vertical',
 			freeMode: true,
-			slidesPerView: 'auto'
+			slidesPerView: 'auto',
 		};
 		return (
-			<Swiper {...params}
-				ref={node => { if (node) this.Swiper = node.swiper; }}>
+			<Swiper
+				{...params}
+				ref={node => { if (node) this.Swiper = node.swiper; }}
+			>
 				{this.props.children}
 			</Swiper>
 		);
 	}
-};
+}
 
 export default SwiperViewport;

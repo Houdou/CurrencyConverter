@@ -224,7 +224,7 @@ class CurrencyConverterApp extends Component {
 		this.getRates()
 			.then(null, err => {
 				this.popupNoticeOrError(err, true);
-			});;
+			});
 	}
 
 	handleBaseUpdate(newBase) {

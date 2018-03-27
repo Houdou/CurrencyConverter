@@ -9,9 +9,6 @@
 	font-size: 1.3em;
 	padding: 0.6rem 1rem 0.3rem;
 	border-bottom: #BBB 1px solid;
-}
-
-.CurrencyNew-currency {
 	display: flex;
 	flex-flow: row;
 	justify-content: space-between;

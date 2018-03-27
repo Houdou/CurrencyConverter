@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Swiper from 'react-id-swiper';
@@ -29,6 +29,7 @@ class CurrencyNew extends Component {
 			slideClass: 'CurrencyNew-option',
 			direction: 'vertical',
 			slidesPerView: 'auto',
+			freeMode: true,
 			mousewheel: true,
 			nested: true,
 		};
